@@ -128,8 +128,6 @@
                     }
 
                 }
-                return "Không có ngày này";
-
             }
         }
 
@@ -154,9 +152,10 @@
             alert("Chứng minh nhân dân là một dãy số");
         } else if (!Number.isInteger(soTienGui)) {
             alert("Số tiền gửi là một dãy số");
-        } else if (ngayMoSo.length > 0) {
+        } else if (ngayMoSo.length > 7) {
             alert(kiemTraNgayMoSo(ngayMoSo));
-        } else {
+        }
+        {
             let them = window.confirm(`Bạn có muốn thêm mới không?`);
             if (them) {
                 mang.push(soTietKiemMoi);

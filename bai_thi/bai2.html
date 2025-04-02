@@ -9,7 +9,7 @@
 </body>
 <script>
     function kiemTraPhanSoBangNhau(tuSo1, mauSo1, tuSo2, mauSo2) {
-        if (tuSo1 * mauSo1 === tuSo2 * mauSo2) {
+        if (tuSo1 * mauSo2 === tuSo2 * mauSo1) {
             return true;
         }
         return false;
@@ -35,7 +35,7 @@
     || !Number.isInteger(parseInt(mangPhanSo1[1])) || !Number.isInteger(parseInt(mangPhanSo2[0])) || !Number.isInteger(parseInt(mangPhanSo2[1]))
     || parseFloat(mangPhanSo1[1]) === 0 || parseFloat(mangPhanSo2[1]) === 0);
     let ketQua = kiemTraPhanSoBangNhau(mangPhanSo1[0], mangPhanSo1[1], mangPhanSo2[0], mangPhanSo2[1]);
-    if (ketQua === true) {
+    if (ketQua) {
         alert(`Hai phân số bằng nhau!!`);
     } else {
         alert(`Hai phân số KHÔNG bằng nhau!!`);
