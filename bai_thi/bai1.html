@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function inRaMangSoNguyenTo(mang) {
+        let mangSoNguyenTo = [];
+        for (let i = 0; i < mang.length; i++) {
+            if (kiemTraSoNguyenTo(mang[i]) === true) {
+                mangSoNguyenTo.push(mang[i]);
+            }
+        }
+        return mangSoNguyenTo;
+    }
+
+    function kiemTraSoNguyenTo(so) {
+        if (so < 2) {
+            return false;
+        }
+        for (let i = 2; i <= Math.sqrt(so); i++) {
+
+            if (so % i === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    let doDai = +prompt("Nhập độ dài của mảng: ");
+    while (doDai < 0 || doDai > 50 || !Number.isInteger(doDai)) {
+        doDai = +prompt("Nhập độ dài của mảng: ");
+    }
+    let mang = new Array(doDai);
+    for (let i = 0; i < mang.length; i++) {
+        mang[i] = prompt(`Tại vị trí ${i} có giá trị là: `);
+        while(!Number.isInteger(parseFloat(mang[i]))){
+            mang[i] = prompt(`Tại vị trí ${i} có giá trị là một số nguyên: `);
+        }
+    }
+    let mangSoNguyenTo = inRaMangSoNguyenTo(mang);
+    alert(`Mảng đầu là: ${mang}\nMảng số nguyên tố là: ${mangSoNguyenTo}`);
+</script>
+</html>

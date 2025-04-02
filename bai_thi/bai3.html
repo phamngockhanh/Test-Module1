@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h4>Hiển thị sổ tiết kiệm</h4>
+    </div>
+    <div id="addProduct">
+        <label><input type="text" id="maSo" placeholder="Mã sổ"></label>
+        <label><input type="text" id="loaiTietKiem" placeholder="Loại tiết kiệm"></label>
+        <label><input type="text" id="hoTen" placeholder="Họ tên khách hàng"></label>
+        <label><input type="text" id="chungMinh" placeholder="Chứng minh nhân dân"></label>
+        <label><input type="text" id="ngayMoSo" placeholder="Ngày mở sổ"></label>
+        <label><input type="text" id="soTienGui" placeholder="Số tiền gửi"></label>
+        <input type="button" value="Thêm mới" onclick="themMoi()">
+    </div>
+    <div>
+        <p id="hienThi"></p>
+    </div>
+
+</div>
+</body>
+<script>
+    class SoTietKiem {
+        constructor(maSo, loaiTietKiem, hoTenKhachHang, chungMinhNhanDan, ngayMoSo, soTienGui) {
+            this.maSo = maSo;
+            this.loaiTietKiem = loaiTietKiem;
+            this.hoTenKhachHang = hoTenKhachHang;
+            this.chungMinhNhanDan = chungMinhNhanDan;
+            this.ngayMoSo = ngayMoSo;
+            this.soTienGui = soTienGui;
+        }
+    }
+
+    let SoTietKiem1 = new SoTietKiem("A1411", "Dài hạn", "Phạm Ngọc Khánh", 123123123, "30/02/2019", 123213312);
+    let SoTietKiem2 = new SoTietKiem("A1412", "Ngắn hạn", "Nguyễn Trí Đông", 123434343, "30/02/2021", 12312323);
+    let SoTietKiem3 = new SoTietKiem("A1413", "Dài hạn", "Nguyễn Văn Bình", 3434342133, "30/02/2023", 123123213);
+
+    let mang = [SoTietKiem1, SoTietKiem2, SoTietKiem3];
+
+    hienThi();
+
+    function hienThi() {
+        let tableHTML = `<table border="1px solid">
+                                  <tr>
+                                      <th>Mã sổ</th>
+                                      <th>Loại tiết kiệm</th>
+                                      <th>Họ tên khách hàng</th>
+                                      <th>Chứng minh nhân dân</th>
+                                      <th>Ngày mở sổ</th>
+                                      <th>Số tiền gửi</th>
+                                      <th>Hành động</th>
+                                  </tr>`;
+
+        for (let i = 0; i < mang.length; i++) {
+            tableHTML += `<tr>
+                                      <td>${mang[i].maSo}</td>
+                                      <td>${mang[i].loaiTietKiem}</td>
+                                      <td>${mang[i].hoTenKhachHang}</td>
+                                      <td>${mang[i].chungMinhNhanDan}</td>
+                                      <td>${mang[i].ngayMoSo}</td>
+                                      <td>${mang[i].soTienGui}</td>
+                                      <td><button onclick ="xoaDanhBa(${i})">Xóa</button></td>
+                                  </tr>`;
+        }
+        tableHTML += `</table>`;
+        document.getElementById("hienThi").innerHTML = tableHTML;
+    }
+
+    function xoaDanhBa(viTri) {
+        for (let i = 0; i < mang.length; i++) {
+            if (viTri === i) {
+                let xoa = window.confirm(`Bạn có muốn xóa không?`);
+                if (xoa) {
+                    mang.splice(viTri, 1);
+                    hienThi();
+                }
+            }
+        }
+    }
+
+    function kiemTraNgayMoSo(ngay) {
+        let kiemTraNgayMoSo = ngay.split("/");
+        if (kiemTraNgayMoSo.length !== 3) {
+            alert("Nhập đúng định dạng ngày!!");
+        } else {
+            if (!Number.isInteger(parseFloat(kiemTraNgayMoSo[2])) || parseFloat(kiemTraNgayMoSo[2]) < 0) {
+                return "Không có năm này";
+            } else if (!Number.isInteger(parseFloat(kiemTraNgayMoSo[1])) || parseInt(kiemTraNgayMoSo[1]) > 12 || parseInt(kiemTraNgayMoSo[1]) < 1) {
+                return "Không có tháng này";
+            } else if (!Number.isInteger(parseFloat(kiemTraNgayMoSo[0])) || parseInt(kiemTraNgayMoSo[0]) > 31 || parseInt(kiemTraNgayMoSo[1]) < 1) {
+                if (parseInt(kiemTraNgayMoSo[1]) <= 12 || parseInt(kiemTraNgayMoSo[1]) >= 1) {
+                    switch (parseInt(kiemTraNgayMoSo[1])) {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            if (parseInt(kiemTraNgayMoSo[0]) > 31) {
+                                return "Không có ngày này";
+                            }
+                            break;
+                        case 2:
+                            if (parseInt(kiemTraNgayMoSo[0]) > 29) {
+                                return "Không có ngày này";
+                            }
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            if (parseInt(kiemTraNgayMoSo[0]) > 29) {
+                                return "Không có ngày này";
+                            }
+                            break;
+                    }
+
+                }
+                return "Không có ngày này";
+
+            }
+        }
+
+
+    }
+
+    function themMoi() {
+        let maSo = document.getElementById("maSo").value;
+        let loaiTietKiem = document.getElementById("loaiTietKiem").value;
+        let hoTen = document.getElementById("hoTen").value;
+        let chungMinh = +document.getElementById("chungMinh").value;
+        let ngayMoSo = document.getElementById("ngayMoSo").value;
+        let soTienGui = +document.getElementById("soTienGui").value;
+        let soTietKiemMoi = new SoTietKiem(maSo, loaiTietKiem, hoTen, chungMinh, ngayMoSo, soTienGui);
+        if (maSo.length > 5) {
+            alert("Mã sổ tối đa 5 ký tự");
+        } else if (loaiTietKiem.length > 10) {
+            alert("Loại tiết kiệm tối đa 10 ký tự");
+        } else if (hoTen.length > 30) {
+            alert("Loại tiết kiệm tối đa 30 ký tự");
+        } else if (!Number.isInteger(chungMinh)) {
+            alert("Chứng minh nhân dân là một dãy số");
+        } else if (!Number.isInteger(soTienGui)) {
+            alert("Số tiền gửi là một dãy số");
+        } else if (ngayMoSo.length > 0) {
+            alert(kiemTraNgayMoSo(ngayMoSo));
+        } else {
+            let them = window.confirm(`Bạn có muốn thêm mới không?`);
+            if (them) {
+                mang.push(soTietKiemMoi);
+                alert("Thêm mới thành công");
+                hienThi();
+            } else {
+                alert("Bạn đã hủy thêm mới");
+                hienThi();
+            }
+        }
+    }
+</script>
+</html>

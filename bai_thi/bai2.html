@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function kiemTraPhanSoBangNhau(tuSo1, mauSo1, tuSo2, mauSo2) {
+        if (tuSo1 * mauSo1 === tuSo2 * mauSo2) {
+            return true;
+        }
+        return false;
+    }
+
+    let phanSo1;
+    let phanSo2;
+    let mangPhanSo1;
+    let mangPhanSo2;
+    do {
+        phanSo1 = prompt(`Nhập phân số 1: `);
+        phanSo2 = prompt(`Nhập phân số 2: `);
+        mangPhanSo1 = phanSo1.split("/");
+        mangPhanSo2 = phanSo2.split("/");
+        if (mangPhanSo1.length !== 2 || mangPhanSo2.length !== 2 || !Number.isInteger(parseInt(mangPhanSo1[0]))
+            || !Number.isInteger(parseInt(mangPhanSo1[1])) || !Number.isInteger(parseInt(mangPhanSo2[0])) || !Number.isInteger(parseInt(mangPhanSo2[1]))) {
+            alert("Vui lòng nhập lại!!!");
+        }
+        if (parseFloat(mangPhanSo1[1]) === 0 || parseFloat(mangPhanSo2[1]) === 0) {
+            alert("Vui lòng nhập mẫu số lớn hơn 0");
+        }
+    } while (mangPhanSo1.length !== 2 || mangPhanSo2.length !== 2 || !Number.isInteger(parseInt(mangPhanSo1[0]))
+    || !Number.isInteger(parseInt(mangPhanSo1[1])) || !Number.isInteger(parseInt(mangPhanSo2[0])) || !Number.isInteger(parseInt(mangPhanSo2[1]))
+    || parseFloat(mangPhanSo1[1]) === 0 || parseFloat(mangPhanSo2[1]) === 0);
+    let ketQua = kiemTraPhanSoBangNhau(mangPhanSo1[0], mangPhanSo1[1], mangPhanSo2[0], mangPhanSo2[1]);
+    if (ketQua === true) {
+        alert(`Hai phân số bằng nhau!!`);
+    } else {
+        alert(`Hai phân số KHÔNG bằng nhau!!`);
+    }
+</script>
+</html>
